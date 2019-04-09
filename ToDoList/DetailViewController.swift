@@ -25,14 +25,14 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        descriptionLabel.text = item.description
-        dateCreatedLabel.text = item.dateCreatedAsString()
-        completedSwitch.isOn = item.completed
+        // add values to views
+        updateViews();
         
         view.addSubview(backButton)
         view.addSubview(descriptionLabel)
         view.addSubview(dateCreatedLabel)
         view.addSubview(completedSwitch)
+        view.addSubview(dateCompletedLabel)
         
         view.setNeedsUpdateConstraints()
     }
@@ -53,7 +53,7 @@ class DetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.textAlignment = .left
-        view.font = view.font.withSize(20)
+        view.font = view.font.withSize(12)
         
         return view
     }()
@@ -64,6 +64,8 @@ class DetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         
         view.isOn = false
+        
+        view.addTarget(self, action: #selector(onSwitchSwitched), for: .valueChanged)
         
         return view
     }()
@@ -81,8 +83,36 @@ class DetailViewController: UIViewController {
         return view
     }()
     
+    lazy var dateCompletedLabel: UILabel! = {
+        let view = UILabel()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.textAlignment = .right
+        view.font = view.font.withSize(12)
+        
+        return view
+    }()
+    
+    // toggle the completion of the item when switched
+    @objc func onSwitchSwitched() {
+        self.item.toggleComplete()
+        updateViews()
+    }
+    
+    // go back to the previous view
     @objc func onBackClicked() {
         self.dismiss(animated: false, completion: nil)
+    }
+    
+    // add the item data to the views
+    func updateViews() {
+        descriptionLabel.text = item.description
+        dateCreatedLabel.text = item.dateCreatedAsString()
+        completedSwitch.isOn = item.completed
+        
+        // set completed date
+        dateCompletedLabel.text = (item.completed ? "Completed at: " : "") + item.dateCompletedAsString()
     }
     
     override func updateViewConstraints() {
@@ -94,11 +124,14 @@ class DetailViewController: UIViewController {
         descriptionLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 30).isActive = true
         descriptionLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 10).isActive = true
         
-        dateCreatedLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 10).isActive = true
+        dateCreatedLabel.topAnchor.constraint(equalTo: completedSwitch.bottomAnchor, constant: 10).isActive = true
         dateCreatedLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 10).isActive = true
         
         completedSwitch.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 30).isActive = true
         completedSwitch.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 10).isActive = true
+        
+        dateCompletedLabel.topAnchor.constraint(equalTo: completedSwitch.bottomAnchor, constant: 10).isActive = true
+        dateCompletedLabel.trailingAnchor.constraint(equalTo: margins.trailingAnchor, constant: 10).isActive = true
         
         super.updateViewConstraints()
     }

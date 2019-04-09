@@ -12,9 +12,17 @@ class ToDoItemCell: UITableViewCell {
     var toDoItem: ToDoItem? {
         didSet {
             if let item = toDoItem {
-                descriptionLabel.text = item.description
-                dateCreatedLabel.text = item.dateCreatedAsString()
                 
+                // strikethrough the text if the item is completed
+                if (item.completed) {
+                    let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: item.description)
+                    attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+                    descriptionLabel.attributedText = attributeString
+                } else {
+                    descriptionLabel.attributedText = nil
+                    descriptionLabel.text = item.description
+                }
+                dateCreatedLabel.text = "Created at: " + item.dateCreatedAsString()
                 setNeedsLayout()
             }
         }
@@ -25,7 +33,6 @@ class ToDoItemCell: UITableViewCell {
         
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(dateCreatedLabel)
-        
         contentView.setNeedsUpdateConstraints()
     }
     
@@ -39,7 +46,7 @@ class ToDoItemCell: UITableViewCell {
         
         view.textAlignment = .left
         view.textColor = UIColor.black
-        view.font = view.font.withSize(12)
+        view.font = view.font.withSize(16)
         
         return view
     }()
@@ -50,7 +57,7 @@ class ToDoItemCell: UITableViewCell {
         
         view.textAlignment = .left
         view.textColor = UIColor.black
-        view.font = view.font.withSize(12)
+        view.font = view.font.withSize(10)
         
         return view
     }()

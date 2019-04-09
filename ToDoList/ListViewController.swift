@@ -13,8 +13,13 @@ class ListViewController: UIViewController {
     var data:[ToDoItem]
     
     init() {
-        let item:ToDoItem = ToDoItem(description: "Fake Data")
-        self.data = Array(repeating: item, count: 5)
+        // use different data for testing
+        let item1: ToDoItem = ToDoItem(description: "Item 1")
+        let item2: ToDoItem = ToDoItem(description: "Item 2")
+        let item3: ToDoItem = ToDoItem(description: "Item 3")
+        item2.toggleComplete()
+        
+        self.data = [item1, item2, item3]
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -29,6 +34,12 @@ class ListViewController: UIViewController {
         view.addSubview(titleLabel)
         view.addSubview(tableView)
         view.setNeedsUpdateConstraints()
+    }
+    
+    // reset the data when the view reappears as the user may have changed the completion
+    // status on the detail view page
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     lazy var titleLabel: UILabel! = {
@@ -83,7 +94,7 @@ extension ListViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = data[indexPath.row]
         let detailView: DetailViewController = DetailViewController(item: item)
         self.present(detailView, animated: false, completion: nil)
