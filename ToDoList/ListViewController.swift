@@ -82,6 +82,12 @@ extension ListViewController: UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let item = data[indexPath.row]
+        let detailView: DetailViewController = DetailViewController(item: item)
+        self.present(detailView, animated: false, completion: nil)
+    }
 }
 
 extension ListViewController: UITableViewDelegate {

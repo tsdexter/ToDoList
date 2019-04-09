@@ -13,6 +13,7 @@
 		E47EFA75225D188F00327302 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E47EFA73225D188F00327302 /* LaunchScreen.storyboard */; };
 		E47EFA7D225D214400327302 /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EFA7C225D214400327302 /* ToDoItem.swift */; };
 		E47EFA7F225D234E00327302 /* ToDoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EFA7E225D234E00327302 /* ToDoItemCell.swift */; };
+		E47EFA81225D274D00327302 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47EFA80225D274D00327302 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		E47EFA76225D188F00327302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E47EFA7C225D214400327302 /* ToDoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
 		E47EFA7E225D234E00327302 /* ToDoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoItemCell.swift; sourceTree = "<group>"; };
+		E47EFA80225D274D00327302 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				E47EFA76225D188F00327302 /* Info.plist */,
 				E47EFA7C225D214400327302 /* ToDoItem.swift */,
 				E47EFA7E225D234E00327302 /* ToDoItemCell.swift */,
+				E47EFA80225D274D00327302 /* DetailViewController.swift */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			files = (
 				E47EFA6D225D188E00327302 /* ListViewController.swift in Sources */,
 				E47EFA6B225D188E00327302 /* AppDelegate.swift in Sources */,
+				E47EFA81225D274D00327302 /* DetailViewController.swift in Sources */,
 				E47EFA7F225D234E00327302 /* ToDoItemCell.swift in Sources */,
 				E47EFA7D225D214400327302 /* ToDoItem.swift in Sources */,
 			);
