@@ -22,4 +22,12 @@ class ToDoItem {
     func completeItem() {
         self.completed = true
     }
+    
+    func dateCreatedAsString() -> String {
+        let dateFormatter = DateFormatter()
+        let dateFormat = "MMM dd, YYYY - h:mm a"
+        dateFormatter.dateFormat = dateFormat
+        
+        return dateFormatter.string(from: self.dateCreated)
+    }
 }
