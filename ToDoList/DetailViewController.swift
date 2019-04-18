@@ -114,7 +114,7 @@ class DetailViewController: UIViewController {
         completedSwitch.isOn = item.completed
         
         // set completed date
-//        dateCompletedLabel.text = (item.completed ? "Completed at: " : "") + item.dateCompletedAsString()
+        dateCompletedLabel.text = (item.completed ? "Completed at: " : "") + item.dateCompletedAsString()
     }
     
     override func updateViewConstraints() {

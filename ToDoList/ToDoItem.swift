@@ -22,11 +22,12 @@ class ToDoItem {
         self.completed = false
     }
     
-    init(id: Int64, description: String, isCompleted: Bool, dateCreated: Date) {
+    init(id: Int64, description: String, isCompleted: Bool, dateCreated: Date, dateCompleted: Date?) {
         self.id = id
         self.description = description
         self.dateCreated = dateCreated
         self.completed = isCompleted
+        self.dateCompleted = dateCompleted
     }
     
     // set id with value from db after it's added

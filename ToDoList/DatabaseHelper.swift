@@ -17,6 +17,7 @@ class DatabaseHelper {
     let description = Expression<String>("description")
     let isCompleted = Expression<Bool>("isCompleted")
     let dateAdded = Expression<Date>("dateAdded")
+    let dateCompleted = Expression<Date?>("dateCompleted")
     
     init() {
     
@@ -45,6 +46,8 @@ class DatabaseHelper {
                 t.column(isCompleted, defaultValue: false)
                 t.column(dateAdded)
             })
+            // assignment 6 schema update
+            try db!.run(items.addColumn(dateCompleted))
         } catch (let message) {
             print(message)
         }
@@ -85,7 +88,8 @@ class DatabaseHelper {
                     id: row[id],
                     description: row[description],
                     isCompleted: row[isCompleted],
-                    dateCreated: row[dateAdded]
+                    dateCreated: row[dateAdded],
+                    dateCompleted: row[dateCompleted]
                 )
                 toDoItems.append(item)
             }
@@ -108,7 +112,7 @@ class DatabaseHelper {
         let dbItem = items.filter(id == item.id)
         
         do {
-            if try db!.run(dbItem.update(isCompleted <- item.completed)) > 0 {
+            if try db!.run(dbItem.update([isCompleted <- item.completed, dateCompleted <- item.dateCompleted])) > 0 {
                 print("updated item")
             } else {
                 print("item not found")
