@@ -20,6 +20,12 @@ class ToDoItem {
         self.completed = false
     }
     
+    init(description: String, isCompleted: Bool, dateCreated: Date) {
+        self.description = description
+        self.dateCreated = dateCreated
+        self.completed = isCompleted
+    }
+    
     func toggleComplete() {
         // if it's already complete set date to nil else to now
         self.dateCompleted = self.completed ? nil : Date()
