@@ -27,4 +27,10 @@ class ToDoListManager {
     func addItem(item: ToDoItem) {
         self.databaseHelper.insertItem(item: item)
     }
+    
+    // assignment 5, update the item and then update it in the db
+    func toggleCompleted(item: ToDoItem) {
+        item.toggleComplete()
+        self.databaseHelper.toggleComplete(item: item)
+    }
 }

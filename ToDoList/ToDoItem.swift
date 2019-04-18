@@ -9,21 +9,29 @@
 import Foundation
 
 class ToDoItem {
+    var id: Int64
     let description: String
     let dateCreated: Date
     var completed: Bool
     var dateCompleted: Date?
     
     init(description: String) {
+        self.id = 0 // placeholder id, will be updated after db insert
         self.description = description
         self.dateCreated = Date()
         self.completed = false
     }
     
-    init(description: String, isCompleted: Bool, dateCreated: Date) {
+    init(id: Int64, description: String, isCompleted: Bool, dateCreated: Date) {
+        self.id = id
         self.description = description
         self.dateCreated = dateCreated
         self.completed = isCompleted
+    }
+    
+    // set id with value from db after it's added
+    func setId(id: Int64) {
+        self.id = id
     }
     
     func toggleComplete() {

@@ -11,9 +11,11 @@ import UIKit
 class DetailViewController: UIViewController {
     
     var item: ToDoItem
+    var listManager: ToDoListManager
     
-    init(item: ToDoItem) {
+    init(item: ToDoItem, listManager: ToDoListManager) {
         self.item = item
+        self.listManager = listManager
         
         super.init(nibName: nil, bundle: nil);
     }
@@ -96,7 +98,7 @@ class DetailViewController: UIViewController {
     
     // toggle the completion of the item when switched
     @objc func onSwitchSwitched() {
-        self.item.toggleComplete()
+        self.listManager.toggleCompleted(item: item)
         updateViews()
     }
     
@@ -112,7 +114,7 @@ class DetailViewController: UIViewController {
         completedSwitch.isOn = item.completed
         
         // set completed date
-        dateCompletedLabel.text = (item.completed ? "Completed at: " : "") + item.dateCompletedAsString()
+//        dateCompletedLabel.text = (item.completed ? "Completed at: " : "") + item.dateCompletedAsString()
     }
     
     override func updateViewConstraints() {

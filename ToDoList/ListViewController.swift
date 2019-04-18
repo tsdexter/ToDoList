@@ -124,7 +124,7 @@ extension ListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = listManager.getItems()[indexPath.row]
-        let detailView: DetailViewController = DetailViewController(item: item)
+        let detailView: DetailViewController = DetailViewController(item: item, listManager: listManager)
         self.present(detailView, animated: false, completion: nil)
     }
 }

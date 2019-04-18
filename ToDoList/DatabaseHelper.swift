@@ -63,7 +63,8 @@ class DatabaseHelper {
         )
         
         do {
-            try db!.run(insert)
+            let id = try db!.run(insert)
+            item.setId(id: id)
         } catch (let message) {
             print(message)
         }
@@ -81,6 +82,7 @@ class DatabaseHelper {
             
             for row in try db!.prepare(items) {
                 let item = ToDoItem(
+                    id: row[id],
                     description: row[description],
                     isCompleted: row[isCompleted],
                     dateCreated: row[dateAdded]
@@ -93,6 +95,26 @@ class DatabaseHelper {
         } catch (let message) {
             print(message)
             return nil
+        }
+    }
+    
+    // assignment 5, update the item in the database
+    func toggleComplete(item: ToDoItem) {
+        if (db == nil) {
+            print("Unable to get connection")
+            return
+        }
+        
+        let dbItem = items.filter(id == item.id)
+        
+        do {
+            if try db!.run(dbItem.update(isCompleted <- item.completed)) > 0 {
+                print("updated item")
+            } else {
+                print("item not found")
+            }
+        } catch (let message) {
+            print(message)
         }
     }
 }
