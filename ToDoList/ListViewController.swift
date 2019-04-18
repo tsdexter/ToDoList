@@ -10,16 +10,10 @@ import UIKit
 
 class ListViewController: UIViewController {
     
-    var data:[ToDoItem]
+    var listManager: ToDoListManager
     
     init() {
-        // use different data for testing
-        let item1: ToDoItem = ToDoItem(description: "Item 1")
-        let item2: ToDoItem = ToDoItem(description: "Item 2")
-        let item3: ToDoItem = ToDoItem(description: "Item 3")
-        item2.toggleComplete()
-        
-        self.data = [item1, item2, item3]
+        self.listManager = ToDoListManager()
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -89,7 +83,7 @@ class ListViewController: UIViewController {
             if let itemField = dialog.textFields?[0] {
                 if let item = itemField.text {
                     let toDoItem = ToDoItem(description: item)
-                    self.data.append(toDoItem)
+                    self.listManager.addItem(item: toDoItem)
                     self.tableView.reloadData()
                 }
             }
@@ -117,19 +111,19 @@ class ListViewController: UIViewController {
 
 extension ListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return listManager.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(ToDoItemCell.self), for: indexPath) as! ToDoItemCell
         
-        cell.toDoItem = data[indexPath.row]
+        cell.toDoItem = listManager.getItems()[indexPath.row]
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = data[indexPath.row]
+        let item = listManager.getItems()[indexPath.row]
         let detailView: DetailViewController = DetailViewController(item: item)
         self.present(detailView, animated: false, completion: nil)
     }
